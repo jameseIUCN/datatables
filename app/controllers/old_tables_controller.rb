@@ -4,13 +4,7 @@ class OldTablesController < ApplicationController
   # GET /old_tables.json
   def index
     @old_tables = OldTable.all
-    # @old_tables = OldTable.paginate(page: params[:page], per_page: 1)
-
-    # @old_tables = OldTable.paginate(:page => 5, :per_page => 10)
-    # @old_tables = OldTable.paginate(page: params[:recordsFiltered])
     @old_tables = OldTable.paginate(page: params[:page], per_page: 10)
-
-    
   end
 
   # GET /old_tables/1
@@ -32,7 +26,6 @@ class OldTablesController < ApplicationController
     columns = params[:columns]
     recordsFiltered = params[:recordsFiltered]
     
-     
     # @old_tables = OldTable.take(length)
     recordsTotal = OldTable.count  
     # render json: { old_table: @old_tables(only: [:title, :username, :name, :email, :hometown] )}
@@ -47,7 +40,6 @@ class OldTablesController < ApplicationController
     #   # recordsTotal = OldTable.count,
     #   # recordsFiltered = OldTables.all
     # }
-    
     
 =begin      
       respond to JSON
@@ -74,14 +66,10 @@ class OldTablesController < ApplicationController
                 "regex": "false"
                 },
                 draw: draw,
-
             }
           }
-
           
-          
-          # "test": @old_tables.as_json(only: [:title, :username, :name, :email, :hometown])
- 
+       # "test": @old_tables.as_json(only: [:title, :username, :name, :email, :hometown])
            render json: config 
       end
     end
