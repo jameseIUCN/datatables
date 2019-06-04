@@ -4,6 +4,13 @@ class OldTablesController < ApplicationController
   # GET /old_tables.json
   def index
     @old_tables = OldTable.all
+    # @old_tables = OldTable.paginate(page: params[:page], per_page: 1)
+
+    # @old_tables = OldTable.paginate(:page => 5, :per_page => 10)
+    # @old_tables = OldTable.paginate(page: params[:recordsFiltered])
+    @old_tables = OldTable.paginate(page: params[:page], per_page: 10)
+
+    
   end
 
   # GET /old_tables/1
@@ -18,34 +25,22 @@ class OldTablesController < ApplicationController
 
   def get_proccessed_old_data_table
     
-    
-    # length = params[:length].to_i
-    length = 20
+    length = params[:length].to_i
+    # length = 20
     start = params[:start].to_i
     draw = params[:draw].to_i
+    columns = params[:columns]
     recordsFiltered = params[:recordsFiltered]
-  
+    
+     
     # @old_tables = OldTable.take(length)
     recordsTotal = OldTable.count  
-
-    @old_tables = OldTable.limit(length)
-    # @old_tables = OldTable.paginate(:page => params[:page], :per_page => 30)
-    # @old_tables = OldTable.paginate(page: params[:page], per_page: 30)
-    OldTable.where(:name => true).paginate(:page => params[:page])
-
-
-
-   # OldTable.all.paginate(page: params[length], per_page: 30)
-    # @old_tables = @old_tables.paginate(:page => 1, :per_page => 2)
-
-    # @old_tables = OldTable.paginate(page: params[:page])
-
-
     # render json: { old_table: @old_tables(only: [:title, :username, :name, :email, :hometown] )}
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @old_tables.as_json(only: [:title, :username, :name, :email, :hometown]) }
-    end
+    @old_tables = OldTable.limit(length)
+    # respond_to do |format|
+    #   format.json { render json: @old_tables.as_json(only: [:title, :username, :name, :email, :hometown]) }
+    # end
+
     # respond_to do |format|
     #   format.json { render json: @old_tables.as_json(only: [:title, :username, :name, :email, :hometown])
     #   # draw: params['draw'].to_i
@@ -59,29 +54,37 @@ class OldTablesController < ApplicationController
       build the JSON manually and inserting dynamic values in from params above 
 =end
     
-    # respond_to do |format|
-    #   format.json do
+    respond_to do |format|
+      # { render json: @old_tables.as_json(only: [:title, :username, :name, :email, :hometown]) }
+      format.json do
         
-    #       # output = @old_tables.as_json(only: [:title, :username, :name, :email, :hometown])
-    #       # response = ({draw: params['draw'], recordsTotal: OldTable.count})
-    #       config = { "draw": [draw],
-    #       "start": [start],
-    #       "recordsFiltered": [length],
-    #       "recordsTotal": [recordsTotal],
-    #       "searchable": "true", 
-    #       "orderable": "true",
-    #       "search":{
-    #            "value": "", 
-    #            "regex": "false"
-    #        },
-    #       "data": { data: 
-    #                @old_tables.as_json(only: [:title, :username, :name, :email, :hometown])
-    #               }
-    #     }
-    #       #  output = response.merge(data_output)
-    #        render json: config 
-    #   end
-    # end
+          # output = @old_tables.as_json(only: [:title, :username, :name, :email, :hometown])
+          # response = ({draw: params['draw'], recordsTotal: OldTable.count})
+          config = { 
+            "draw": draw,
+            # "columns": @old_tables.as_json(only: [:title, :username, :name, :email, :hometown]) },
+            # columns = @old_tables.as_json
+            "columns":{ 
+              "data":  @old_tables.as_json(only: [:title]),
+              "name": "name",
+              "searchable": "true", 
+              "orderable": "true",
+              "search":{
+                "value": "", 
+                "regex": "false"
+                },
+                draw: draw,
+
+            }
+          }
+
+          
+          
+          # "test": @old_tables.as_json(only: [:title, :username, :name, :email, :hometown])
+ 
+           render json: config 
+      end
+    end
 
   end
   # GET /old_tables/1/edit
