@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type"
+    title Myapp
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag "//cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css"
+    = stylesheet_link_tag "https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'      
+
+  body  
+    = yield
+
+
+    = javascript_include_tag "//cdn.datatables.net/1.10.11/js/jquery.dataTables.js"
+    = javascript_include_tag "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"
+    = javascript_include_tag 'http://cdnjs.cloudflare.com/ajax/libs/yadcf/0.9.2/jquery.dataTables.yadcf.js'
+    = javascript_include_tag "//cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js"
+
+
+    = javascript_include_tag "//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.js"

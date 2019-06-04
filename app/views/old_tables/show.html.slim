@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @old_table.title
+p
+  strong Name:
+  = @old_table.name
+p
+  strong Username:
+  = @old_table.username
+p
+  strong Email:
+  = @old_table.email
+p
+  strong Hometown:
+  = @old_table.hometown
+
+= link_to 'Edit', edit_old_table_path(@old_table)
+'|
+= link_to 'Back', old_tables_path

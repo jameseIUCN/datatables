@@ -1,0 +1,17 @@
+<h1>Old Tables</h1>
+
+<table id="old_table_id" class="display table-responsive">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Name</th>
+      <th>Username</th>
+      <th>E-mail</th>
+      <th>Hometown</th>
+    </tr>
+  </thead>
+
+  <%= will_paginate @old_tables %>
+<hr />
+
+<%= link_to 'New Old Table', new_old_table_path %>

@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<!-- <h1>Data Tables</h1>
+<div class="container table-container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <table id="ajax-table" class="display">
+      </table>
+    </div>
+  </div>
+</div>
+<hr /> -->
+
+<table id="table_id" class="display table-responsive">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Userame</th>
+      <th>Name</th>
+      <th>E-mail</th>
+      <th>Hometown</th>
+    </tr>
+  </thead>
+
+  <!-- <tbody>
+    <% @data_tables.each do |data_table| %>
+    <tr>
+      <td><%= data_table.title %></td>
+      <td><%= data_table.name %></td>
+      <td><%= data_table.username %></td>
+      <td><%= data_table.email %></td>
+      <td><%= data_table.hometown %></td>
+    </tr>
+    <% end %>
+  </tbody> -->
+</table>
+
+
+<hr />
+
+
+<%= link_to 'New Data Table', new_data_table_path %>

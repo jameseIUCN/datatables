@@ -1,0 +1,24 @@
+= form_for @old_table do |f|
+  - if @old_table.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@old_table.errors.count, "error")} prohibited this old_table from being saved:"
+      ul
+        - @old_table.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :username
+    = f.text_field :username
+  .field
+    = f.label :email
+    = f.text_field :email
+  .field
+    = f.label :hometown
+    = f.text_field :hometown
+  .actions = f.submit
