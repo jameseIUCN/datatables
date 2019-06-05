@@ -18,65 +18,31 @@ class OldTablesController < ApplicationController
   end
 
   def get_proccessed_old_data_table
-    
-    length = params[:length].to_i
-    # length = 20
-    start = params[:start].to_i
-    draw = params[:draw].to_i
-    columns = params[:columns]
-    recordsFiltered = params[:recordsFiltered]
-    
-    # @old_tables = OldTable.take(length)
-    recordsTotal = OldTable.count  
-    # render json: { old_table: @old_tables(only: [:title, :username, :name, :email, :hometown] )}
-    @old_tables = OldTable.limit(length)
-    # respond_to do |format|
-    #   format.json { render json: @old_tables.as_json(only: [:title, :username, :name, :email, :hometown]) }
-    # end
-
-    # respond_to do |format|
-    #   format.json { render json: @old_tables.as_json(only: [:title, :username, :name, :email, :hometown])
-    #   # draw: params['draw'].to_i
-    #   # recordsTotal = OldTable.count,
-    #   # recordsFiltered = OldTables.all
-    # }
-    
-=begin      
-      respond to JSON
-      build the JSON manually and inserting dynamic values in from params above 
-=end
-    
     respond_to do |format|
-      # { render json: @old_tables.as_json(only: [:title, :username, :name, :email, :hometown]) }
       format.json do
-        
-          # output = @old_tables.as_json(only: [:title, :username, :name, :email, :hometown])
-          # response = ({draw: params['draw'], recordsTotal: OldTable.count})
-          config = { 
-            "draw": draw,
-            # "columns": @old_tables.as_json(only: [:title, :username, :name, :email, :hometown]) },
-            # columns = @old_tables.as_json
-            "columns":{ 
-              "data":  @old_tables.as_json(only: [:title]),
-              "name": "name",
-              "searchable": "true", 
-              "orderable": "true",
-              "search":{
-                "value": "", 
-                "regex": "false"
-                },
-                draw: draw,
-            }
-          }
-          
-       # "test": @old_tables.as_json(only: [:title, :username, :name, :email, :hometown])
-           render json: config 
+        page = params[:start].to_i/params[:length].to_i + 1
+        data = OldTable.paginate(page: page, per_page: params[:length]).map do |el|
+          [el.title || "", el.name || "", el.username || "", el.email || "", el.hometown || ""]
+        end
+
+        byebug
+
+        render json: {
+          draw: params[:draw].to_i,
+          # columns: columns,
+          data: data,
+          recordsTotal: OldTable.count,
+          recordsFiltered: data.count,
+          order: params[:order],
+          search: params[:search],
+          start: params[:start]
+        }
       end
     end
-
   end
-  # GET /old_tables/1/edit
-  def edit
+
+# GET /old_tables/1/edit
+def edit
   end
 
   # POST /old_tables

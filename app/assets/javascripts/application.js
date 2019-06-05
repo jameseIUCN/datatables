@@ -24,19 +24,16 @@ $(document).ready(function() {
       url: "/proccessed_old_data_tables.json",
       dataSrc: ""
     },
-    columns: [
-      { data: "title" },
-      { data: "username" },
-      { data: "name" },
-      { data: "email" },
-      { data: "hometown" }
-    ],
-    displayLength: 10,
-    paging: true,
     processing: true,
-    deferRender: true,
-    serverSide: true
-    // iDisplayLength: 10
+    serverSide: true,
+    pageLength: 10,
+    // columns: [
+    //   { data: "title" },
+    //   { data: "username" },
+    //   { data: "name" },
+    //   { data: "email" },
+    //   { data: "hometown" }
+    // ],
   });
 });
 
